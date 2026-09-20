@@ -17,8 +17,9 @@ app.use((req, res, next) => {
 
 app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
-app.use('/api', userRoutes); 
+app.use('/api', userRoutes);
 
+// Menyajikan folder frontend statis mentah
 app.use(express.static(fileURLToPath(new URL('../marketplace-frontend/', import.meta.url))));
 
 app.get('*any', (req, res) => {
