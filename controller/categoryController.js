@@ -14,8 +14,16 @@ export const CategoryController = {
     try {
       const { id } = req.params;
       const categoryData = await CategoryModel.findCategoryWithProducts(id);
-      if (!categoryData) return res.status(404).json({ message: "Category not found" });
-      res.status(200).json(categoryData);
+      
+      if (!categoryData) {
+        return res.status(404).json({ message: "Category not found" });
+      }
+      
+      res.status(200).json({
+        id: categoryData[0]?.id || id,
+        category_name: categoryData[0]?.category_name || "",
+        products: categoryData.products || []
+      });
     } catch (err) {
       res.status(500).json({ message: "Error fetching category details", error: err.message });
     }
