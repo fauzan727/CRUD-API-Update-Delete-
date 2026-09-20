@@ -34,11 +34,16 @@ export const ProductController = {
 
   getById: async (res, id) => {
     try {
+      const { id } = req.params; // Mengambil ID dari URL Express
       const product = await ProductModel.findProductById(id);
-      if (!product) return sendJson(res, 404, { message: "Product not found" });
-      sendJson(res, 200, product);
+      
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      
+      return res.status(200).json(product);
     } catch (err) {
-      sendJson(res, 500, { message: "Error fetching product", error: err.message });
+      return res.status(500).json({ message: "Error fetching product", error: err.message });
     }
   },
 
