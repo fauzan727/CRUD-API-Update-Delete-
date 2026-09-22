@@ -19,11 +19,11 @@ export const getAllProducts = async () => {
   
   return rows.map(row => ({
     id: row.product_id,
-    product_name: row.product_name, 
+    title: row.product_name, // Mengembalikan ke 'title' agar frontend tidak crash
     price: row.price,
     stock: row.stock,
     category: row.category_id ? { id: row.category_id, name: row.category_name } : null,
-    user: row.user_id ? { id: row.user_id, username: row.user_name } : null
+    seller: row.user_id ? { id: row.user_id, name: row.user_name } : null 
   }));
 };
 
@@ -49,16 +49,20 @@ export const findProductById = async (id) => {
   const row = rows[0];
   return {
     id: row.product_id,
-    product_name: row.product_name,
+    title: row.product_name,
     price: row.price,
     stock: row.stock,
     category: row.category_id ? { id: row.category_id, name: row.category_name } : null,
-    user: row.user_id ? { id: row.user_id, username: row.user_name } : null
+    seller: row.user_id ? { id: row.user_id, name: row.user_name } : null // Mengembalikan ke format objek 'seller' asli
   };
 };
 
 export const createProduct = async (data) => {
-  const { product_name, price, stock, category_id, user_id } = data;
+  // Frontend mungkin mengirimkan 'title' dan 'seller_id' / 'user_id'
+  // Kita amankan dengan fallback pencocokan variabel
+  const product_name = data.product_name || data.title;
+  const user_id = data.user_id || data.seller_id;
+  const { price, stock, category_id } = data;
   
   const [result] = await db.query(
     'INSERT INTO products (product_name, price, stock, category_id, user_id) VALUES (?, ?, ?, ?, ?)',
@@ -69,7 +73,8 @@ export const createProduct = async (data) => {
 };
 
 export const updateProduct = async (id, data) => {
-  const { product_name, price, stock, category_id } = data;
+  const product_name = data.product_name || data.title;
+  const { price, stock, category_id } = data;
   
   await db.query(
     'UPDATE products SET product_name = ?, price = ?, stock = ?, category_id = ? WHERE product_id = ?',
