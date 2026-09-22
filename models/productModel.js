@@ -19,7 +19,7 @@ export const getAllProducts = async () => {
   
   return rows.map(row => ({
     id: row.product_id,
-    title: row.product_name, // Mengembalikan ke 'title' agar frontend tidak crash
+    title: row.product_name,
     price: row.price,
     stock: row.stock,
     category: row.category_id ? { id: row.category_id, name: row.category_name } : null,

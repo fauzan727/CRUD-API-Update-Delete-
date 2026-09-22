@@ -1,0 +1,11 @@
+$kind: http-request
+url: "{{base_url}}/categories"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"category_name\": \"Pakaian Pria\"\r
+
+    }"
+order: 4315628677799461

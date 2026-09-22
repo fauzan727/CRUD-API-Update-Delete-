@@ -1,0 +1,11 @@
+$kind: http-request
+url: "{{base_url}}/categories/5"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"category_name\": \"Pakaian Pria & Anak\"\r
+
+    }"
+order: 4483390265875312
