@@ -58,8 +58,6 @@ export const findProductById = async (id) => {
 };
 
 export const createProduct = async (data) => {
-  // Frontend mungkin mengirimkan 'title' dan 'seller_id' / 'user_id'
-  // Kita amankan dengan fallback pencocokan variabel
   const product_name = data.product_name || data.title;
   const user_id = data.user_id || data.seller_id;
   const { price, stock, category_id } = data;

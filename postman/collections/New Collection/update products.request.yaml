@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{base_url}}/products/10"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \  \"product_name\": \"Sepatu Lari Nike Pegasus (Updated)\",\r
+
+    \  \"price\": 1850000,\r
+
+    \  \"stock\": 25\r
+
+    }\r\n"
+order: 4474614595519955
